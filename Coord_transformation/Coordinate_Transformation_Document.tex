@@ -29,7 +29,10 @@
 
 \subsection{Summary}
 The file ``coord\rule{2mm}{0.15mm}transformer.c'' 
-contains the C-code required to convert from GIS to Radar coordinates and vice-versa. The file is designed to be built as an executable which takes a command line argument flag to designate whether to convert from GIS to Radar (-g) or Radar to GIS (-r). The initial and final locations are currently hard coded as Wallops Island (37N, 75W) and Puerto Rico (18N, 66W), respectively.
+contains the C-code required to convert from GIS to Radar coordinates and vice-versa. The file is designed 
+to be built as an executable which takes a command line argument flag to designate whether to convert from 
+GIS to Radar (-g) or Radar to GIS (-r). The initial and final locations are currently hard coded as Wallops
+Island (37N, 75W) and Puerto Rico (18N, 66W), respectively.
 
 Example usage on Windows:
 \vspace{-5mm}
@@ -53,7 +56,10 @@ Example output:
 
 \stepcounter{section}
 \subsection{GIS to Radar}
-The function for converting from GIS coordinates to Radar coordinates is handled by the ``GIS2Radar'' and requires the initial and final latitude and longitude coordinates. This function is a C implementation of the following mathematical formulas. To calculate the range and bearing, the following intermediate equations are useful.
+The function for converting from GIS coordinates to Radar coordinates is handled by the ``GIS2Radar'' 
+and requires the initial and final latitude and longitude coordinates. This function is a C implementation 
+of the following mathematical formulas. To calculate the range and bearing, the following intermediate 
+equations are useful.
 \begin{align*}
     a &= \text{sin}^2\left(\frac{\Delta \phi}{2}\right) + 
     \text{cos}(\phi_1) \cdot \text{cos}(\phi_2) \cdot 
@@ -65,7 +71,9 @@ The function for converting from GIS coordinates to Radar coordinates is handled
     y &= \text{sin}(\Delta\lambda) \cdot \text{cos}(\phi_2) \\
 \end{align*}
 
-where $\phi_1$ and $\phi_2$ represent the initial and final latitude coordinate, respectively, $\Delta\phi$ is the difference in latitudes, and $\Delta\lambda$ is the difference in longitudes. The range and bearing are then calculated via the following formulas.
+where $\phi_1$ and $\phi_2$ represent the initial and final latitude coordinate, respectively, 
+$\Delta\phi$ is the difference in latitudes, and $\Delta\lambda$ is the difference in longitudes. T
+he range and bearing are then calculated via the following formulas.
 \begin{align*}
     \text{Range} &= R\cdot c \\
     \text{Bearing} &= \text{atan2}(y,x) \cdot \frac{180}{\pi}
@@ -75,7 +83,11 @@ where $R$ is the radius of Earth in kilometers, range is in km, and bearing is i
 
 \stepcounter{section}
 \subsection{Radar to GIS}
-The function for converting from Radar coordinates to GIS coordinates is handled by the ``R2G'' and requires the initial latitude and longitude coordinates, as well as a range and bearing. This function is a C implementation of the following mathematical formulas. To calculate the range and bearing, the following intermediate equations are useful for documentation clarity, though are not required in implementation.
+The function for converting from Radar coordinates to GIS coordinates is handled by the ``R2G'' and 
+requires the initial latitude and longitude coordinates, as well as a range and bearing. This function 
+is a C implementation of the following mathematical formulas. To calculate the range and bearing, the 
+following intermediate equations are useful for documentation clarity, though are not required in 
+implementation.
 \begin{align*}
     \alpha &= \text{sin}(\phi_1) 
     \cdot \text{cos}\left(\frac{\text{Range}}{R} \right) \\
@@ -94,7 +106,9 @@ The final latitude and longitude coordinates are then calculated via the followi
     \lambda_2 &= \lambda_1 + \text{atan2} \left( 
     \gamma, \delta \right)
 \end{align*}
-where $\phi_1$ and $\phi_2$ represent the initial and final latitude coordinates, respectively, $\lambda_1$ and $\lambda_2$ represent the initial and final longitude coordinates, respectively, and $R$ is the Earth's radius in kilometers.
+where $\phi_1$ and $\phi_2$ represent the initial and final latitude coordinates, respectively, $\lambda_1$ 
+and $\lambda_2$ represent the initial and final longitude coordinates, respectively, and $R$ is the Earth's 
+radius in kilometers.
 
 
 \end{document}
