@@ -75,9 +75,8 @@ int RtoG(double range, double bearing, double glonInit, double glatInit, double 
     double lon1 = glonInit * PI / 180.0;
     double brng = bearing * PI / 180.0;
 
-    // Earth's radius in kilometers
+    // Define Earth's radius (km) and calculate final lat/long
     double R = 6371.0;
-
     double lat2 = asin(sin(lat1) * cos(range/R) + cos(lat1) * sin(range/R) * cos(brng));
     double lon2 = lon1 + atan2(sin(brng) * sin(range/R) * cos(lat1), cos(range/R) - sin(lat1) * sin(lat2));
 
@@ -97,9 +96,9 @@ int RtoG(double range, double bearing, double glonInit, double glatInit, double 
         modified to include these as command line inputs.
     
     Example usage:
-        - Build: "gcc coord_transformer.c -o coord_trans"
-        - RtoG:  "coord_trans.exe -r"
-        - RtoG:  "coord_trans.exe -g"
+        - Build    : "gcc coord_transformer.c -o coord_trans"
+        - RtoG     :  "coord_trans.exe -r"
+        - GIS2Radar:  "coord_trans.exe -g"
     
     Output:
         Displays the methodology used ("Radar to GIS" or "GIS to Radar") and the calculated data. Data is
