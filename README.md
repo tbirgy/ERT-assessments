@@ -1,5 +1,5 @@
 # ERT-assessments
-Assessment problems for ERT technical interview. This repo has separate folders for each ERT assessment. Each folder contains the code required to complete each assessment, along with the associated documentation. The original assessment problem statement has be uploaded alongside this README. Below are brief descriptions of each assessment.
+Assessment problems for ERT technical interview. This repo has separate folders for each ERT assessment. Each folder contains the code required to complete each assessment, along with the associated documentation. The original assessment problem statement has be uploaded alongside this README. Below are brief descriptions of each assessment. NOTE: Any PDFs included are solely intended for the ease of any reviewers who are not familiar with LaTeX. These PDFs will not be maintained in version control long-term.
 
 <ins>IRI EDP:</ins>
 
