@@ -1,0 +1,77 @@
+\documentclass{article}
+
+\setlength{\parskip}{\baselineskip}
+\setlength{\parindent}{0pt}
+\usepackage[fontsize=12pt]{fontsize}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{lastpage}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{bm}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+\cfoot{Page \thepage\ of \pageref{LastPage}}
+\thispagestyle{fancy}
+\setlength{\parindent}{0pt}
+
+
+\begin{document}
+
+
+\section*{\begin{center}
+    Documentation of the Optional Square Wave Transportation Assessment
+\end{center}}
+\stepcounter{section}
+
+
+\subsection{Summary}
+The file ``wave\rule{2mm}{0.15mm}transport.c'' contains the C code
+for transporting a square wave across a 1-D structured grid. The file 
+``create\rule{2mm}{0.15mm}gif.gp'' uses the output of the C code to create a 
+10 second GIF of the square wave being transported.
+
+\textbf{Note:} Access to the research paper by Boris \& Book referenced 
+in the problem statement was restricted behind paywalls. Nevertheless, an 
+attempt was made to transport the square wave as described. The flux-
+corrected method was not successfully implemented based on initial research 
+found online, but a method with diffusion was successfully implemented. 
+
+Example usage in Windows command prompt:
+\vspace{-5mm}
+\begin{itemize}
+    \item Build: ``make''
+    \item Run: ``wave\rule{2mm}{0.15mm}transport.exe \&\& 
+    gnuplot create\rule{2mm}{0.15mm}gif.gp''
+\end{itemize}
+
+Example output:
+\vspace{-5mm}
+\begin{center}
+    \fbox{ \includegraphics[width=0.75\textwidth]{Capture.PNG} }
+\end{center}
+
+\newpage
+\stepcounter{section}
+\subsection{Implementation Methodology}
+The code implemented in the C file is a simple methodology using the Leapfrog 
+technique to update the continuity and momentum equations. The following 
+steps are taken:
+\begin{enumerate}
+    \item Initialize the square wave to a density of 25.0 in cells 50 to 149.
+    \item Loop over the desired time span.
+    \begin{enumerate}
+        \item Update the flux and density via continuity equation over a half time step.
+        \item Use the density from 2(a) to update the momentum over a full time step.
+        \item Use the updated momentum from 2(b) to update the density over a full time step.
+        \item Save density data to a frame to be used in the final GIF.
+    \end{enumerate}
+    \item Combine all frames into one GIF.
+\end{enumerate}
+
+
+
+\end{document}
