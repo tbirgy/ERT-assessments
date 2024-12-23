@@ -9,9 +9,9 @@ import sqlite3
 
 # Example Usage:
 # --------------
-#     - Build : "python src\\main.py -b RTSW"
-#     - Update: "python src\\main.py -u RTSW"
-#     - Print : "python src\\main.py -p RTSW"
+#     - Build : "python main.py -b RTSW"
+#     - Update: "python main.py -u RTSW"
+#     - Print : "python main.py -p RTSW"
 
 
 # main
