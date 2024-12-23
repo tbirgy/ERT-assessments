@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <math.h>
-#include <time.h>
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 
 
@@ -57,8 +56,6 @@ double function_j(double f, double fp, double fptilde) {
 
 main() {
 
-  clock_t begin = clock();
-
   double S, f, fp, fptilde;
 
 
@@ -69,13 +66,4 @@ main() {
       }
     }
   }
-
-  clock_t end = clock();
-  double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-
-  printf("Time: %.6f s\n", time_spent); 
-
-  printf("Final S = %.6f ", S);
-
-
 }
