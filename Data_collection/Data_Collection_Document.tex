@@ -1,0 +1,83 @@
+\documentclass{article}
+
+\setlength{\parskip}{\baselineskip}
+\setlength{\parindent}{0pt}
+\usepackage[fontsize=12pt]{fontsize}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{lastpage}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{bm}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+\cfoot{Page \thepage\ of \pageref{LastPage}}
+\thispagestyle{fancy}
+\setlength{\parindent}{0pt}
+
+\newcommand\us[0]{\rule{2mm}{0.15mm}}
+
+\begin{document}
+
+
+\section*{\begin{center}
+    Documentation of the Data Collection Assessment
+\end{center}}
+\stepcounter{section}
+
+
+\subsection{Summary}
+The file ``main.py'' contains the entry point to the Python code
+for collecting data from the NOAA online resources. Currently, this project is able to fetch the Real Time Solar Wind data from the NOAA website, store it in a SQL database table, and update that table on a regularly scheduled interval. The program expects the user to supply a desired action (build, update, or print) and a database table name. A breakdown of the individual files is provided below.
+
+\textbf{Requirements:} This code require the end user to have Python 3 install on their system. It is intended to be ran the the command prompt (see example below).
+
+Example usage for the RTSW table in Windows command prompt:
+\vspace{-5mm}
+\begin{itemize}
+    \item Build: ``python main.py -b RTSW''
+    \item Update: ``python main.py -u RTSW''
+    \item Print: ``python main.py -p RTSW''
+\end{itemize}
+
+Example output:
+\vspace{-5mm}
+\begin{center}
+    \includegraphics[width=0.85\textwidth]{Data_output.png}
+\end{center}
+
+\newpage
+\stepcounter{section}
+\subsection{Program Files}
+
+\subsubsection{main.py}
+This Python file provides the main entry point from the command prompt into 
+the program. It takes in the desired action (build, update, or print) and the 
+database table name. When building, it will first delete previous data stored in the table (if it exists) then create a fresh instance of the named table. When updating, it will fetch new data from the source URL on a predetermined schedule (currently 60 seconds), then add any new data into the named table. Only unique data is retained and the table is sorted according to the time tag. 
+
+
+\subsubsection{\us\us init\us\us.py}
+This file simply defines the Python files as a project for the main file.
+
+
+\subsubsection{config.py}
+This file contains the variable to define the output database name, the update schedule interval, and any NOAA source URLs. Currently only the RTSW URL exists, though more can be added.
+
+
+\subsubsection{fetcher.py}
+This file contains a single function to fetch the data from a NOAA source provided a URL. It attempts to collect and parse that data in a JSON format. If successful, it returns an error code of ``0'' and the parsed data. There are a number of common errors that are assigned their own error codes. If any of those are encountered, no data is returned, but the error code is printed to the user. These errors do not stop the program from attempting future updates.
+
+
+\subsubsection{persistence.py}
+This file contains the necessary functions to delete, create, update, and print database tables. Delete and print functions require only the table name to be specified. Create requires the source URL and the table name. Update requires the new data provided from the fetcher.py file and the table name. These functions are called in other files to manage the SQL database as desired.
+
+
+\subsubsection{scheduler.py}
+This file contains two functions to automatically update the SQL table on a predetermined schedule, both of which require the source URL and table name as inputs. Theses functions check the error status of the update and only modify the table if data was successfully read from the source.
+
+
+
+\end{document}
