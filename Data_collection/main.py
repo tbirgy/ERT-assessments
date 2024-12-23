@@ -25,36 +25,41 @@ import sqlite3
 #     defined in the config file. "Print" simply prints the named table/
 def main():
 
-    # Print desired table
-    if(sys.argv[1] == "-p"):
-        print_db_tbl(sys.argv[2])
+    try:
+        # Print desired table
+        if(sys.argv[1] == "-p"):
+            print_db_tbl(sys.argv[2])
 
 
-    # Can add similar if/else cases for new NOAA sources
+        # Can add similar if/else cases for new NOAA sources
 
-    # Build or update the RTSW table in the NOAA Database
-    if(sys.argv[2] == "RTSW"):
-        URL = URL_RTSW
-        tbl_name = sys.argv[2]
+        # Build or update the RTSW table in the NOAA Database
+        if(sys.argv[2] == "RTSW"):
+            URL = URL_RTSW
+            tbl_name = sys.argv[2]
 
-        # Build RTSW table
-        if(sys.argv[1] == "-b"):
-            delete_table(tbl_name)
-            create_database(URL, tbl_name)
+            # Build RTSW table
+            if(sys.argv[1] == "-b"):
+                delete_table(tbl_name)
+                create_database(URL, tbl_name)
 
-        # Update RTSW table
-        elif(sys.argv[1] == "-u"):
-            error, data = fetch_data(URL)
-            if error == 0:
-                update_table(data, tbl_name)
-                run_scheduler(URL, tbl_name)
+            # Update RTSW table
+            elif(sys.argv[1] == "-u"):
+                error, data = fetch_data(URL)
+                if error == 0:
+                    update_table(data, tbl_name)
+                    run_scheduler(URL, tbl_name)
+                else:
+                    print("Error Updating (Code:", error,")")
+                    print("Trying again in", SCHEDULE_INTERVAL, "seconds.")
+                    run_scheduler(URL, tbl_name)
             else:
-                print("Error Updating (Code:", error,")")
-                print("Trying again in", SCHEDULE_INTERVAL, "seconds.")
-                run_scheduler(URL, tbl_name)
-        else:
-            pass
+                pass
 
+    except KeyboardInterrupt:
+        print("\nKeyboard Interupt.")
+        print("Manually exiting program...")
+        sys.exit(0)
 
     
 # __name__
