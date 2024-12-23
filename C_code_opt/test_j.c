@@ -60,8 +60,8 @@ main() {
 
 
   for (f = -5.; f <= 5.; f += 0.01) {
-    for (fp = 0.; fp <= 10.; fp += 0.1) {
-      for (fptilde = 0.; fptilde <= 10.; fptilde += 0.1) {
+    for (fp = 0.; fp <= 10.; fp += 0.01) {
+      for (fptilde = 0.; fptilde <= 10.; fptilde += 0.01) {
         S = function_j(f, fp, fptilde);
       }
     }
